@@ -371,7 +371,23 @@ sub output_hash_to_vcf_info_chunk {
     }
     # keep 0 values
     elsif (defined $hash->{$col}
+      # WARNING: 6168 : Argument "" isn't numeric in numeric eq (==) at /bgfs/rbao/Software/vep/98.3/modules/Bio/EnsEMBL/VEP/OutputFactory/VCF.pm line 373.
+      # added this condition (Sunny)
+           && ($hash->{$col} ne '')
            && ($hash->{$col} == 0)) {
+
+      # print "++++++++++++++\n$hash->{$col}\n";
+
+      push @chunk, $hash->{$col};
+    }
+    # keep 0 values
+    elsif (defined $hash->{$col}
+      # WARNING: 6168 : Argument "" isn't numeric in numeric eq (==) at /bgfs/rbao/Software/vep/98.3/modules/Bio/EnsEMBL/VEP/OutputFactory/VCF.pm line 373.
+      # added this condition (Sunny)
+           && ($hash->{$col} eq '')) {
+
+      # print "++++++++++++++\n$hash->{$col}\n";
+
       push @chunk, $hash->{$col};
     }
     else {
